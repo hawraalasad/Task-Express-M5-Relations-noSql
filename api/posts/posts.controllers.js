@@ -1,4 +1,5 @@
-const Post = require('../../models/Post');
+const Author = require("../../models/Author");
+const Post = require("../../models/Post");
 
 exports.fetchPost = async (postId, next) => {
   try {
@@ -11,7 +12,18 @@ exports.fetchPost = async (postId, next) => {
 
 exports.postsCreate = async (req, res) => {
   try {
-    const newPost = await Post.create(req.body);
+    const { authorId } = req.params;
+    const postInfo = {
+      ...req.body,
+      author: authorId,
+    };
+    const newPost = await Post.create(postInfo);
+
+    const author = await Author.findByIdAndUpdate(authorId, {
+      $push: {
+        posts: newPost._id,
+      },
+    });
     res.status(201).json(newPost);
   } catch (error) {
     next(error);
