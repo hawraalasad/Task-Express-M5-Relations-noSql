@@ -1,5 +1,6 @@
 const Author = require("../../models/Author");
 const Post = require("../../models/Post");
+const Tag = require("../../models/Tag");
 
 exports.fetchPost = async (postId, next) => {
   try {
@@ -12,13 +13,17 @@ exports.fetchPost = async (postId, next) => {
 
 exports.postsCreate = async (req, res) => {
   try {
+    const tags = req.body.tags;
     const { authorId } = req.params;
     const postInfo = {
       ...req.body,
       author: authorId,
     };
     const newPost = await Post.create(postInfo);
-
+    const updatedTags = await Tag.updateMany(
+      { _id: tags },
+      { $push: { posts: newPost._id } }
+    );
     const author = await Author.findByIdAndUpdate(authorId, {
       $push: {
         posts: newPost._id,

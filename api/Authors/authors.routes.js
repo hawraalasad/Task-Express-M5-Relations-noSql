@@ -5,13 +5,13 @@ const {
   authorsDelete,
   authorsUpdate,
 } = require("./authors.controllers");
-const router = express.Router();
+const authorRoutes = express.Router();
 
-router.get("/", authorsGet);
-router.post("/", authorsCreate);
+authorRoutes.get("/", authorsGet);
+authorRoutes.post("/", authorsCreate);
 
-router.delete("/:authorId", authorsDelete);
+authorRoutes.delete("/:authorId", authorsDelete);
 
-router.put("/:authorId", authorsUpdate);
+authorRoutes.put("/:authorId", authorsUpdate);
 
-module.exports = router;
+module.exports = authorRoutes;
