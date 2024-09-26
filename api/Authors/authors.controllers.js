@@ -29,7 +29,7 @@ exports.authorsUpdate = async (req, res) => {
 
 exports.authorsGet = async (req, res) => {
   try {
-    const authors = await Author.find();
+    const authors = await Author.find().populate();
     res.json(authors);
   } catch (error) {
     next(error);

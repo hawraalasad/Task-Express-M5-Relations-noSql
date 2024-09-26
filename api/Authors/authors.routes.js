@@ -1,5 +1,10 @@
 const express = require("express");
-const { authorsCreate } = require("./authors.controllers");
+const {
+  authorsCreate,
+  authorsGet,
+  authorsDelete,
+  authorsUpdate,
+} = require("./authors.controllers");
 const router = express.Router();
 
 router.get("/", authorsGet);

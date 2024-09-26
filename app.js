@@ -2,9 +2,9 @@ const express = require("express");
 const app = express();
 const postsRoutes = require("./api/posts/posts.routes");
 const authorRoutes = require("./api/Authors/authors.routes");
-const connectDb = require("./database");
+const connectDB = require("./database");
 
-connectDb();
+connectDB();
 app.use(express.json());
 app.use("/posts", postsRoutes);
 app.use("/authors", authorRoutes);
